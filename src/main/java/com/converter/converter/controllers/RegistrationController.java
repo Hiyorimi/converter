@@ -19,12 +19,12 @@ public class RegistrationController {
     private UserRepository userRepository;
 
     @GetMapping("/registration")
-    public String registrationPage() {
+    public String getRegistration() {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(
+    public String postRegistration(
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String passwordConfirm, Model model) {
