@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>История конвертаций</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body class="p-3 mb-2 bg-light text-dark">
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Выход" class="btn btn-primary" style="float: right"/>
+    </form>
+</div>
+<div class="container-fluid">
+    <div class="container">
+        <div class="col">
+            <div align="center">
+                <form th:action="@{/history}" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <select name="charCode1" class="form-control">
+                                <option th:text="${currency1 == null} ? '' : ${currency1?.charCode}+ '(' +${currency1?.name}+')'"
+                                        th:value="${currency1 == null} ? 'empty' : ${currency1?.charCode}"
+                                        th:selected="selected"/>
+                                <option th:each="currency : ${currencies1}"
+                                        th:value="${currency.charCode}"
+                                        th:utext="${currency.charCode}+ '(' +${currency.name}+')'"/>
+                                <option value="empty"></option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select name="charCode2" class="form-control">
+                                <option th:text="${currency2 == null} ? '' : ${currency2?.charCode}+ '(' +${currency2?.name}+')'"
+                                        th:value="${currency2 == null} ? 'empty' : ${currency2?.charCode}"
+                                        th:selected="selected"/>
+                                <option th:each="currency : ${currencies2}"
+                                        th:value="${currency.charCode}"
+                                        th:utext="${currency.charCode}+ '(' +${currency.name}+')'"/>
+                                <option value="empty"></option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="date" name="date" class="form-control" th:value="${date}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div align="center">
+                                <input name="submit" type="submit" class="btn btn-primary" value="Фильтровать"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-condensed mt-2">
+                <tr>
+                    <th>Исходная валюта</th>
+                    <th>Целевая валюта</th>
+                    <th>Исходная сумма</th>
+                    <th>Получаемая сумма</th>
+                    <th>Дата</th>
+                </tr>
+                <tr th:each="convertation : ${convertations}">
+                    <td th:text="${convertation.before}" align="center"></td>
+                    <td th:text="${convertation.after}" align="center"></td>
+                    <td th:text="${convertation.summBefore}" align="center"></td>
+                    <td th:text="${convertation.summafter}" align="center"></td>
+                    <td th:text="${convertation.date}" align="center"></td>
+                </tr>
+            </table>
+            <div align="center">
+                <a href="/converter">Конвертер валют</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
