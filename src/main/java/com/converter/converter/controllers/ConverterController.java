@@ -73,7 +73,7 @@ public class ConverterController {
         Currency currency2 = getCurrency(charCode2);
         currencies1.remove(currency1);
         currencies2.remove(currency2);
-        double result = Double.parseDouble(quantity) * (currency1.getValue() / currency2.getValue()) * (currency2.getNominal() / currency1.getNominal());
+        double result = Double.parseDouble(quantity.replaceAll(",", ".")) * (currency1.getValue() / currency2.getValue()) * (currency2.getNominal() / currency1.getNominal());
         result = new BigDecimal(result).setScale(4, RoundingMode.UP).doubleValue();
         model.addAttribute("currencies1", currencies1);
         model.addAttribute("currencies2", currencies2);
