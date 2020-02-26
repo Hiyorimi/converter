@@ -67,10 +67,10 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
-                                <input name="quantity" class="form-control" type="text" th:value="${quantity}"/>
+                                <input name="quantity" class="form-control" type="number" step="any" th:value="${quantity}" required >
                             </div>
                             <div class="col">
-                                <input name="result" class="form-control" type="text" th:value="${result}"/>
+                                <input  readonly="readonly" name="result" class="form-control" type="text" th:value="${result}"/>
                             </div>
                         </div>
                     </div>
